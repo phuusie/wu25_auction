@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <nav class="account-subnav">
+        <div class="account-subnav-inner">
+            
+            <a class="account-subnav-link"
+               asp-area="Identity"
+               asp-page="/Account/Manage/Index">
+                Profil
+            </a>
+            
+            <a class="account-subnav-link"
+               asp-controller="AuctionItems"
+               asp-action="MyItems">
+                Inventarie
+            </a>
+            
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="account-subnav-link"
+                   asp-controller="Admin"
+                   asp-action="Users">
+                    Användare
+                </a>
+            }
+        </div>
+    </nav>
+}

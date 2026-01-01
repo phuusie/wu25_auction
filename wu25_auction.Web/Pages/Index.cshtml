@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Gammalt Glimmer";
+}
+
+<section class="hero">
+    <div class="hero-image">
+        <img src="~/images/hero.jpg" alt="Gammalt Glimmer inventarie" />
+    </div>
+
+    <div class="hero-content">
+        <h1 class="hero-title">Gammalt Glimmer</h1>
+        <p class="hero-subtitle">
+            Ett digitalt inventarie för unika objekt, auktioner och historia
+        </p>
+
+        <div class="hero-actions">
+            <a asp-page="/Auctions/Index" class="hero-link">
+                Visa inventarie
+            </a>
+
+            @if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <a asp-area="Identity"
+                   asp-page="/Account/Manage/Index"
+                   class="hero-link muted">
+                    Mitt konto
+                </a>
+            }
+        </div>
+    </div>
+</section>

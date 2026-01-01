@@ -10,7 +10,7 @@ public static class AuctionEndpointExtensions
     public static IEndpointRouteBuilder MapAuctionEndpoint(
         this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("auctions");
+        var group = app.MapGroup("api/auctions");
 
         group.MapGet("/", GetAllAsync);
         group.MapGet("/{id}", GetByIdAsync);

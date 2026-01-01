@@ -1,0 +1,78 @@
+﻿@page
+@using wu25_auction.Domain.Enums
+@model AuctionsIndexModel
+
+@{
+    ViewData["Title"] = "Inventarie";
+}
+
+<div class="account-layout">
+    <div class="account-header account-header-actions">
+        <div>
+            <h1 class="account-title">Inventarie</h1>
+            <p class="account-subtitle">Vårt sortiment</p>
+        </div>
+
+        @if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <a asp-page="/Auctions/Create" class="create-button">
+                + Auktionera objekt
+            </a>
+        }
+    </div>
+
+    <div class="product-grid">
+        @foreach (var item in Model.Items)
+        {
+            <a asp-page="/Auctions"
+               asp-route-id="@item.Id"
+               class="product-card-link product-link">
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="~/images/placeholder-auction.jpg"
+                             alt="@item.Description"/>
+                    </div>
+
+                    <div class="product-content">
+                        <div class="product-header">
+                            <div>
+                                <h2 class="product-title">@item.Category</h2>
+                                <span class="muted user-email">@item.Id</span>
+                            </div>
+
+                            @if (item.Status == SalesItemStatus.Sold)
+                            {
+                                <span class="badge badge-sold">Såld</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-available">I lager</span>
+                            }
+                        </div>
+
+                        <p class="product-description">
+                            @item.Description
+                        </p>
+
+                        <div class="product-meta">
+                            <span>@item.Category</span>
+                            <span>@item.Decade</span>
+                        </div>
+
+                        <div class="product-price">
+                            @if (item.Status == SalesItemStatus.Sold)
+                            {
+                                <span class="price-sold">@item.FinalPrice kr</span>
+                            }
+                            else
+                            {
+                                <span class="price">@item.StartPrice.ToString("N0") kr</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>

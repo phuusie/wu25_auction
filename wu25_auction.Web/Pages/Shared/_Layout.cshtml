@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Gammalt Glimmer</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light gg-navbar">
+        <div class="container-fluid">
+            <ul class="navbar-nav me-auto gg-navbar-left">
+                <li class="nav-item">
+                    <a class="nav-link gg-nav-link gg-navbar-brand"
+                       asp-page="/Index">
+                        Gammalt Glimmer
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link gg-nav-link"
+                       asp-page="/Auctions/Index">
+                        Auktioner
+                    </a>
+                </li>
+            </ul>
+
+            <div class="navbar-nav ms-auto gg-navbar-right">
+                <partial name="_LoginPartial" />
+            </div>
+
+        </div>
+    </nav>
+</header>
+
+<partial name="_SubLayout" />
+
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="gg-footer">
+    <div class="container gg-footer-inner">
+        <span class="gg-footer-brand">
+            © 2025 Gammalt Glimmer
+        </span>
+
+        <nav class="gg-footer-links">
+            <a asp-page="/Privacy">
+                Integritet
+            </a>
+        </nav>
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
