@@ -1,12 +1,12 @@
 ﻿using wu25_auction.Application.DTOs.AuctionItems;
+using wu25_auction.Domain.Entities;
 
 namespace wu25_auction.Application.Services;
 
 public interface IAuctionItemService
 {
-    Task<IEnumerable<AuctionItemDto>> GetAllAsync();
-    Task<AuctionItemDto?> GetByIdAsync(string id);
-    Task<AuctionItemDto> CreateAsync(CreateAuctionItemDto item);
-    Task<AuctionItemDto> PlaceBidAsync(string id,PlaceBidDto bid);
-    Task DeleteAsync(string id);
+    Task<string> CreateAsync(AuctionItemDto dto, string userId);
+    Task<IEnumerable<AuctionItem>> GetAllAsync();
+    Task<AuctionItem?> GetByIdAsync(string id);
+    Task MarkAsSoldAsync(string id, decimal price, bool isManager);
 }

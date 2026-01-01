@@ -4,62 +4,39 @@ using wu25_auction.Domain.Entities;
 
 namespace wu25_auction.Application.Services;
 
-public class AuctionItemService : IAuctionItemService
+public class AuctionItemService(IAuctionItemRepository itemRepository) : IAuctionItemService
 {
-    private readonly IAuctionItemRepository _auctionItemRepository;
-    
-    public AuctionItemService(IAuctionItemRepository itemRepository)
+    public async Task<string> CreateAsync(AuctionItemDto dto, string userId)
     {
-        _auctionItemRepository = itemRepository;
-    }
-    
-    public async Task<IEnumerable<AuctionItemDto>> GetAllAsync()
-    {
-        var items = await _auctionItemRepository.GetAllAsync();
+        var item = new AuctionItem(
+            dto.Category, dto.Decade, dto.Description, dto.PurchasePrice, dto.StartPrice, userId);
+        
+        await itemRepository.AddAsync(item);
 
-        return items.Select(a => new AuctionItemDto(
-            a.Id, a.Title, a.Description, a.CurrentPrice, a.EndDate));
+        return item.Id;
     }
 
-    public async Task<AuctionItemDto?> GetByIdAsync(string id)
+    public async Task<IEnumerable<AuctionItem>> GetAllAsync()
     {
-        var item = await _auctionItemRepository.GetByIdAsync(id) 
-            ?? throw new KeyNotFoundException("Auktionen finns inte.");
-        
-        return new AuctionItemDto(
-            item.Id, item.Title, item.Description, item.CurrentPrice, item.EndDate);
+        return await itemRepository.GetAllAsync();
     }
 
-    public async Task<AuctionItemDto> CreateAsync(CreateAuctionItemDto item)
+    public async Task<AuctionItem?> GetByIdAsync(string id)
     {
-        var auctionItem = new AuctionItem(
-            item.Title, item.Description, item.StartPrice, item.EndDate);
-        
-        var created = await _auctionItemRepository.AddAsync(auctionItem);
-        
-        return new AuctionItemDto(
-            created.Id, created.Title, created.Description, created.CurrentPrice, created.EndDate);
+        return await itemRepository.GetByIdAsync(id);
     }
 
-    public async Task<AuctionItemDto> PlaceBidAsync(string id, PlaceBidDto bid)
+    public async Task MarkAsSoldAsync(string id, decimal price, bool isManager)
     {
-        var item = await _auctionItemRepository.GetByIdAsync(id) 
-            ?? throw new KeyNotFoundException("Auktionen finns inte.");
-        
-        item.PlaceBid(bid.amount);
+        if (!isManager)
+            throw new UnauthorizedAccessException(
+                "Endast auktionsansvariga får markera objektet som såld.");
 
-        await _auctionItemRepository.SaveChangesAsync();
+        var item = await itemRepository.GetByIdAsync(id)
+                   ?? throw new KeyNotFoundException("Objektet finns inte.");
         
-        return new AuctionItemDto(
-            item.Id, item.Title, item.Description, item.CurrentPrice, item.EndDate);
-    }
-
-    public async Task DeleteAsync(string id)
-    {
-        var item = await _auctionItemRepository.GetByIdAsync(id)
-            ?? throw new KeyNotFoundException("Auktionen finns inte.");
+        item.MarkAsSold(price);
         
-        await _auctionItemRepository.DeleteAsync(item);
-        await _auctionItemRepository.SaveChangesAsync();
+        await itemRepository.SaveChangesAsync();
     }
 }

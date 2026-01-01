@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using wu25_auction.Application.DTOs.AuctionItems;
 using wu25_auction.Application.Services;
 
@@ -14,8 +15,7 @@ public static class AuctionEndpointExtensions
         group.MapGet("/", GetAllAsync);
         group.MapGet("/{id}", GetByIdAsync);
         group.MapPost("/", AddAsync);
-        group.MapPut("/{id}/bid", PlaceBid);
-        group.MapDelete("/{id}", DeleteAsync);
+        group.MapPut("{id}/sold", MarkAsSold);
         
         return app;
     }
@@ -23,38 +23,36 @@ public static class AuctionEndpointExtensions
     private static async Task<IResult> GetAllAsync(
         [FromServices] IAuctionItemService auctionItemService)
     {
-        var auctions = await auctionItemService.GetAllAsync();
-        return Results.Ok(auctions);
+        var items = await auctionItemService.GetAllAsync();
+        return Results.Ok(items);
     }
 
     private static async Task<IResult> GetByIdAsync(
         string id, [FromServices] IAuctionItemService auctionItemService)
     {
-        var auction = await auctionItemService.GetByIdAsync(id);
+        var item = await auctionItemService.GetByIdAsync(id);
         
-        return Results.Ok(auction);
+        return Results.Ok(item);
     }
     
     private static async Task<IResult> AddAsync(
-        CreateAuctionItemDto auctionItem, [FromServices] IAuctionItemService auctionItemService)
+        AuctionItemDto dto, ClaimsPrincipal user, [FromServices] IAuctionItemService auctionItemService)
     {
-        var created = await auctionItemService.CreateAsync(auctionItem);
+        // var userId = user.Identity!.Name!;
+        var tempId = "anonymous-user";
+        var id = await auctionItemService.CreateAsync(dto, tempId);
         
         return Results.Created(
-            $"/auctions/{created.Id}", created);
-    }
-    
-    private static async Task<IResult> PlaceBid(
-        string id, PlaceBidDto bid, [FromServices] IAuctionItemService auctionItemService)
-    {
-        var updateAuction = await auctionItemService.PlaceBidAsync(id, bid);
-        return Results.Ok(updateAuction);
+            $"/auctions/{id}", null);
     }
 
-    private static async Task<IResult> DeleteAsync(
-        string id, [FromServices] IAuctionItemService auctionItemService)
+    private static async Task<IResult> MarkAsSold(
+        string id, decimal finalPrice, ClaimsPrincipal user, [FromServices] IAuctionItemService auctionItemService)
     {
-        await auctionItemService.DeleteAsync(id);
+        var isManager = user.IsInRole("Manager");
+        
+        await auctionItemService.MarkAsSoldAsync(id, finalPrice, isManager);
+        
         return Results.NoContent();
     }
 }

@@ -4,9 +4,8 @@ namespace wu25_auction.DataAccess.Repositories;
 
 public interface IAuctionItemRepository
 {
+    Task AddAsync(AuctionItem item);
     Task<IEnumerable<AuctionItem>> GetAllAsync();
     Task<AuctionItem?> GetByIdAsync(string id);
-    Task<AuctionItem> AddAsync(AuctionItem item);
-    Task DeleteAsync(AuctionItem item);
     Task SaveChangesAsync();
 }

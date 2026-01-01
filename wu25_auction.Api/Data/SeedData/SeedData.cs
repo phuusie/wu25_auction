@@ -12,23 +12,31 @@ public static class SeedData
 
         var items = new List<AuctionItem>
         {
-            new AuctionItem(
-                "Vintage klocka",
-                "En klassisk mekanisk klocka från 60-talet",
-                1000,
-                DateTime.UtcNow.AddDays(7)
+            new(
+                category: "Dekoration",
+                decade: 1960,
+                description: "Vintage klocka från 60-talet",
+                purchasePrice: 1000,
+                startPrice: 1500,
+                createdBy: "seed-user"
             ),
-            new AuctionItem(
-                "Gaming laptop",
-                "Kraftfull laptop för spel och programmering",
-                5000,
-                DateTime.UtcNow.AddDays(5)
+
+            new(
+                category: "Elektronik",
+                decade: 2010,
+                description: "Gaming laptop i gott skick",
+                purchasePrice: 5000,
+                startPrice: 6500,
+                createdBy: "seed-user"
             ),
-            new AuctionItem(
-                "Elgitarr",
-                "Fender Stratocaster i mycket fint skick",
-                7500,
-                DateTime.UtcNow.AddDays(10)
+
+            new(
+                category: "Musik",
+                decade: 1970,
+                description: "Fender Stratocaster elgitarr",
+                purchasePrice: 7500,
+                startPrice: 9500,
+                createdBy: "seed-user"
             )
         };
         
