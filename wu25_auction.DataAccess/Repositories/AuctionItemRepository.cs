@@ -17,10 +17,10 @@ public class AuctionItemRepository : IAuctionItemRepository
         return await _context.AuctionsItems.ToListAsync();
     }
 
-    public async Task<AuctionItem?> GetByIdAsync(int id)
+    public async Task<AuctionItem?> GetByIdAsync(string id)
     {
         return await _context.AuctionsItems
-            .FirstOrDefaultAsync(a => a.Id == id.ToString());
+            .FirstOrDefaultAsync(a => a.Id == id);
     }
 
     public async Task<AuctionItem> AddAsync(AuctionItem auctionItem)
@@ -28,5 +28,10 @@ public class AuctionItemRepository : IAuctionItemRepository
         _context.AuctionsItems.Add(auctionItem);
         await _context.SaveChangesAsync();
         return auctionItem;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }

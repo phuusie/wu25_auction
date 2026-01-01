@@ -12,16 +12,14 @@ public class AuctionItem : Entity<string>
     public DateTime EndDate { get; private set; }
     
     public AuctionItem(
-        string title,
-        string description,
-        decimal startPrice,
-        DateTime endDate)
+        string title, string description, decimal startPrice, DateTime endDate)
     {
+        
         if (startPrice <= 0)
-            throw new ArgumentException("Startpris måste vara större än 0");
+            throw new ArgumentException("Startpris måste vara större än 0.");
 
         if (endDate <= DateTime.UtcNow)
-            throw new ArgumentException("Slutdatum måste vara i framtiden");
+            throw new ArgumentException("Slutdatum måste vara i framtiden.");
 
         Id = Guid.NewGuid().ToString();
         Title = title;
@@ -30,5 +28,16 @@ public class AuctionItem : Entity<string>
         CurrentPrice = startPrice;
         StartDate = DateTime.UtcNow;
         EndDate = endDate;
+    }
+
+    public void PlaceBid(decimal amount)
+    {
+        if (amount <= CurrentPrice)
+            throw new InvalidOperationException("Budet måste vara högre än nuvarande pris.");
+
+        if (DateTime.UtcNow > EndDate)
+            throw new InvalidOperationException("Auktionen är avslutad.");
+
+        CurrentPrice = amount;
     }
 }
