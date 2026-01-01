@@ -1,0 +1,35 @@
+﻿[
+  {
+    "category": "Hushåll",
+    "decade": 1980,
+    "description": "Retro brödrost",
+    "purchasePrice": 300,
+    "startPrice": 600,
+    "createdBy": "seed-user"
+  },
+  {
+    "category": "Dekoration",
+    "decade": 1960,
+    "description": "Vintage klocka från 60-talet",
+    "purchasePrice": 1000,
+    "startPrice": 1500,
+    "createdBy": "seed-user"
+  },
+  {
+    "category": "Elektronik",
+    "decade": 2010,
+    "description": "Gaming laptop i gott skick",
+    "purchasePrice": 5000,
+    "startPrice": 6500,
+    "createdBy": "seed-user"
+  },
+  {
+    "category": "Musik",
+    "decade": 1970,
+    "description": "Fender Stratocaster elgitarr",
+    "purchasePrice": 7500,
+    "startPrice": 9500,
+    "createdBy": "seed-user"
+  }
+  
+]

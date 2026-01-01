@@ -1,4 +1,5 @@
-﻿using wu25_auction.DataAccess;
+﻿using System.Text.Json;
+using wu25_auction.DataAccess;
 using wu25_auction.Domain.Entities;
 
 namespace wu25_auction.Api.Data.SeedData;
@@ -10,37 +11,25 @@ public static class SeedData
         if (context.AuctionsItems.Any())
             return;
 
-        var items = new List<AuctionItem>
+        var options = new JsonSerializerOptions
         {
-            new(
-                category: "Dekoration",
-                decade: 1960,
-                description: "Vintage klocka från 60-talet",
-                purchasePrice: 1000,
-                startPrice: 1500,
-                createdBy: "seed-user"
-            ),
-
-            new(
-                category: "Elektronik",
-                decade: 2010,
-                description: "Gaming laptop i gott skick",
-                purchasePrice: 5000,
-                startPrice: 6500,
-                createdBy: "seed-user"
-            ),
-
-            new(
-                category: "Musik",
-                decade: 1970,
-                description: "Fender Stratocaster elgitarr",
-                purchasePrice: 7500,
-                startPrice: 9500,
-                createdBy: "seed-user"
-            )
+            PropertyNameCaseInsensitive = true
         };
         
-        context.AuctionsItems.AddRange(items);
+        var seedDataJson = File.ReadAllText("Data/SeedData/JSON/auctionItems.json");
+        
+        var seedData = JsonSerializer.Deserialize<List<AuctionItem>>(seedDataJson, options);
+
+        if (seedData != null)
+        {
+            var auctionItems = seedData
+                .Select(a => new AuctionItem(
+                    a.Category, a.Decade, a.Description, a.PurchasePrice, a.StartPrice, a.CreatedBy))
+                .ToList();
+            
+            context.AuctionsItems.AddRange(auctionItems);
+        }
+        
         await context.SaveChangesAsync();
     }
 }
