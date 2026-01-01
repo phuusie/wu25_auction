@@ -23,11 +23,18 @@ public class AuctionItemRepository : IAuctionItemRepository
             .FirstOrDefaultAsync(a => a.Id == id);
     }
 
-    public async Task<AuctionItem> AddAsync(AuctionItem auctionItem)
+    public async Task<AuctionItem> AddAsync(AuctionItem item)
     {
-        _context.AuctionsItems.Add(auctionItem);
+        _context.AuctionsItems.Add(item);
         await _context.SaveChangesAsync();
-        return auctionItem;
+        return item;
+    }
+
+    public async Task DeleteAsync(AuctionItem item)
+    {
+        _context.AuctionsItems.Remove(item);
+        await _context.SaveChangesAsync();
+        
     }
 
     public async Task SaveChangesAsync()

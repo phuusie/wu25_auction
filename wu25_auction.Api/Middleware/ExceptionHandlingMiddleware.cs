@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Text.Json;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace wu25_auction.Api.Middleware;
 
@@ -23,37 +22,41 @@ public class ExceptionHandlingMiddleware
         }
         catch (KeyNotFoundException ex)
         {
-            await WriteErrorAsync(context, HttpStatusCode.NotFound, ex.Message);
+            await WriteProblemDetailsAsync(
+                context, StatusCodes.Status404NotFound, "Resource not found", ex.Message);
         }
         catch (InvalidOperationException ex)
         {
-            await WriteErrorAsync(context, HttpStatusCode.BadRequest, ex.Message);
+            await WriteProblemDetailsAsync(
+                context, StatusCodes.Status400BadRequest, "Invalid operation", ex.Message);
         }
         catch (ArgumentException ex)
         {
-            await WriteErrorAsync(context, HttpStatusCode.BadRequest, ex.Message);
+            await WriteProblemDetailsAsync(
+                context, StatusCodes.Status400BadRequest, "Invalid argument", ex.Message);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unhandled exception");
-            await WriteErrorAsync(
-                context, HttpStatusCode.InternalServerError, "Unexpected exception");
+            _logger.LogError(ex.Message);
+            await WriteProblemDetailsAsync(
+                context, StatusCodes.Status500InternalServerError, "Internal server error", "Unexpected server error");
         }
     }
 
-    private static async Task WriteErrorAsync(
-        HttpContext context, HttpStatusCode statusCode, string message)
+    private static async Task WriteProblemDetailsAsync(
+        HttpContext context, int statusCode, string title, string detail)
     {
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)statusCode;
-
-        var response = new
+        var problem = new ProblemDetails
         {
-            status = context.Response.StatusCode,
-            error = message
+            Status = statusCode,
+            Title = title,
+            Detail = detail,
+            Instance = context.Request.Path
         };
         
-        await context.Response.WriteAsJsonAsync(
-            JsonSerializer.Serialize(response));
+        context.Response.StatusCode = statusCode;
+        context.Response.ContentType = "application/problem+json";
+        
+        await context.Response.WriteAsJsonAsync(problem);
     }
 }
