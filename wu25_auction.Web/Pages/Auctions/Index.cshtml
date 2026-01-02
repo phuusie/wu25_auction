@@ -1,5 +1,4 @@
 ﻿@page
-@using wu25_auction.Domain.Enums
 @model AuctionsIndexModel
 
 @{
@@ -41,7 +40,7 @@
                                 <span class="muted user-email">@item.Id</span>
                             </div>
 
-                            @if (item.Status == SalesItemStatus.Sold)
+                            @if (item.IsSold)
                             {
                                 <span class="badge badge-sold">Såld</span>
                             }
@@ -61,7 +60,7 @@
                         </div>
 
                         <div class="product-price">
-                            @if (item.Status == SalesItemStatus.Sold)
+                            @if (item.IsSold)
                             {
                                 <span class="price-sold">@item.FinalPrice kr</span>
                             }

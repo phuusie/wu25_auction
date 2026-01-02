@@ -1,0 +1,10 @@
+﻿using wu25_auction.Web.Models;
+
+namespace wu25_auction.Web.Services;
+
+public interface IAuctionItemHttpClientService
+{
+    Task<IEnumerable<AuctionItemViewModel>> GetAllAsync();
+    Task<AuctionItemViewModel?> GetByIdAsync(string id);
+    Task CreateAsync(AuctionItemViewModel vm);
+}

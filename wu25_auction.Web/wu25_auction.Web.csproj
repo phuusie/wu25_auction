@@ -21,10 +21,5 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.1"/>
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.1" />
     </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\wu25_auction.Application\wu25_auction.Application.csproj" />
-      <ProjectReference Include="..\wu25_auction.DataAccess\wu25_auction.DataAccess.csproj" />
-    </ItemGroup>
-
+    
 </Project>
