@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using wu25_auction.Web.Data;
-using wu25_auction.Web.Services;
+using wu25_auction.Web.Infrastructure.HttpClientRegistration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +10,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
-builder.Services.AddScoped<IAuctionItemHttpClientService, AuctionItemHttpClientService>();
-
-builder.Services.AddHttpClient<AuctionItemHttpClientService>(client =>
-{
-    client.BaseAddress = new Uri("http://localhost:5067");
-});
+builder.Services.AddHttpClientRegistration(builder.Configuration);
 
 var app = builder.Build();
 

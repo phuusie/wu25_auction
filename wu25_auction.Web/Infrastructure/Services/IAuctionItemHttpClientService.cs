@@ -1,6 +1,6 @@
 ﻿using wu25_auction.Web.Models;
 
-namespace wu25_auction.Web.Services;
+namespace wu25_auction.Web.Infrastructure.Services;
 
 public interface IAuctionItemHttpClientService
 {
