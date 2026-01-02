@@ -5,24 +5,32 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
-                <label asp-for="Username" class="form-label"></label>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
-        </form>
+<div class="account-layout">
+    <div class="account-header">
+        <h1 class="account-title">Profil</h1>
+        <p class="account-subtitle">Personlig information</p>
     </div>
+
+    <partial name="_StatusMessage" for="StatusMessage" />
+
+    <form method="post" class="profile-form">
+        <div class="profile-grid">
+            <input asp-for="Input.FirstName" class="auth-input" placeholder="Namn" />
+            <input asp-for="Input.LastName" class="auth-input" placeholder="Efternamn" />
+
+            <input asp-for="Input.Street" class="auth-input full" placeholder="Gatuadress" />
+
+            <input asp-for="Input.PostalCode" class="auth-input" placeholder="Postkod" />
+            <input asp-for="Input.City" class="auth-input" placeholder="Stad" />
+
+            <input asp-for="Input.Country" class="auth-input full" placeholder="Land" />
+            <input asp-for="Input.PhoneNumber" class="auth-input full" placeholder="Telefon" />
+        </div>
+
+        <button type="submit" class="auth-button confirm">
+            Spara
+        </button>
+    </form>
 </div>
 
 @section Scripts {

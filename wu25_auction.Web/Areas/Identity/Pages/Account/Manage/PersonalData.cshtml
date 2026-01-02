@@ -1,24 +1,36 @@
 ﻿@page
 @model PersonalDataModel
 @{
-    ViewData["Title"] = "Personal Data";
+    ViewData["Title"] = "Personuppgifter";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h3>@ViewData["Title"]</h3>
+<div class="account-layout">
+    <div class="account-header">
+        <h1 class="account-title">Personuppgifter</h1>
+        <p class="account-subtitle">Ladda ner eller radera ditt konto</p>
+    </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
-        <p>
-            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
+    <div class="personal-data-content">
+        <p class="personal-text">
+            Ditt konto innehåller personuppgifter som du har lämnat till oss.
+            Här kan du ladda ner eller radera dessa uppgifter.
         </p>
-        <form id="download-data" asp-page="DownloadPersonalData" method="post">
-            <button class="btn btn-primary" type="submit">Download</button>
+
+        <p class="personal-warning">
+            Att radera dina uppgifter innebär att ditt konto tas bort permanent
+            och inte kan återställas.
+        </p>
+
+        <form asp-page="DownloadPersonalData" method="post">
+            <button type="submit" class="auth-button confirm">
+                Ladda ner uppgifter
+            </button>
         </form>
-        <p>
-            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Delete</a>
-        </p>
+
+        <a asp-page="DeletePersonalData" class="personal-delete-link">
+            Radera konto
+        </a>
     </div>
 </div>
 
