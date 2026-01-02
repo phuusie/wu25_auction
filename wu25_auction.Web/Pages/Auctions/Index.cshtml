@@ -23,7 +23,7 @@
     <div class="product-grid">
         @foreach (var item in Model.Items)
         {
-            <a asp-page="/Auctions"
+            <a asp-page="/Auctions/Details"
                asp-route-id="@item.Id"
                class="product-card-link product-link">
 
@@ -36,7 +36,7 @@
                     <div class="product-content">
                         <div class="product-header">
                             <div>
-                                <h2 class="product-title">@item.Category</h2>
+                                <h3 class="product-title">@item.Title</h3>
                                 <span class="muted user-email">@item.Id</span>
                             </div>
 

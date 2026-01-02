@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using wu25_auction.Web.Models;
 using wu25_auction.Web.Services;
 
@@ -10,8 +11,9 @@ public class AuctionsIndexModel(
 {
     public IEnumerable<AuctionItemViewModel> Items { get; private set; } = items;
 
-    public async Task OnGetAsync()
+    public async Task<IActionResult> OnGetAsync()
     {
         Items = await httpClientService.GetAllAsync();
+        return Page();
     }
 }

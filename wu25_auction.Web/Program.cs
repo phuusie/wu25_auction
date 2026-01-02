@@ -10,6 +10,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
+builder.Services.AddScoped<IAuctionItemHttpClientService, AuctionItemHttpClientService>();
+
 builder.Services.AddHttpClient<AuctionItemHttpClientService>(client =>
 {
     client.BaseAddress = new Uri("http://localhost:5067");

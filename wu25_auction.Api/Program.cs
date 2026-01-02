@@ -32,6 +32,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+
 app.MapAuctionEndpoint();
 
 app.Run();

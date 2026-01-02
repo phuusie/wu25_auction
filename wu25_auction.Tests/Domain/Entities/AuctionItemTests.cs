@@ -10,6 +10,7 @@ public class AuctionItemTests
     public void Generates_Id_WithCorrectFormat()
     {
         var item = new AuctionItem(
+            title: "Test",
             category: "Category",
             decade: 1900,
             description: "Description",
@@ -28,6 +29,7 @@ public class AuctionItemTests
     {
         var exception = Assert.Throws<InvalidOperationException>(() =>
             new AuctionItem(
+                title: "Test",
                 category: "Category",
                 decade: 1900,
                 description: "Description",
@@ -43,6 +45,7 @@ public class AuctionItemTests
     public void MarkAsSold_SetsStatusAndFinalPrice()
     {
         var item = new AuctionItem(
+            title: "Test",
             category: "Category",
             decade: 1900,
             description: "Description",
@@ -62,6 +65,7 @@ public class AuctionItemTests
         var before = DateTime.UtcNow;
 
         var item = new AuctionItem(
+            title: "Test",
             category: "Category",
             decade: 1900,
             description: "Description",

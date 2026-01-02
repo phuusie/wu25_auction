@@ -9,7 +9,7 @@ public class AuctionItemService(IAuctionItemRepository itemRepository) : IAuctio
     public async Task<string> CreateAsync(AuctionItemDto dto, string userId)
     {
         var item = new AuctionItem(
-            dto.Category, dto.Decade, dto.Description, dto.PurchasePrice, dto.StartPrice, userId);
+            dto.Title, dto.Category, dto.Decade, dto.Description, dto.PurchasePrice, dto.StartPrice, userId);
         
         await itemRepository.AddAsync(item);
 

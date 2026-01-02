@@ -7,14 +7,15 @@ public class AuctionItemHttpClientService(HttpClient httpClient) : IAuctionItemH
     
     public async Task<IEnumerable<AuctionItemViewModel>> GetAllAsync()
     {
-        return await httpClient.GetFromJsonAsync<IEnumerable<AuctionItemViewModel>>(
-                "api/auctions") ?? [];
+        var items = await httpClient.GetFromJsonAsync<IEnumerable<AuctionItemViewModel>>("api/auctions");
+        return items ?? [];
     }
 
     public async Task<AuctionItemViewModel?> GetByIdAsync(string id)
     {
-        return await httpClient.GetFromJsonAsync<AuctionItemViewModel>(
-            $"api/auctions/{id}");
+        var item = await httpClient.GetFromJsonAsync<AuctionItemViewModel>($"api/auctions/{id}");
+        
+        return item;
     }
 
     public async Task CreateAsync(AuctionItemViewModel vm)

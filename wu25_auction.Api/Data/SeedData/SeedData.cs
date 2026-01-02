@@ -24,7 +24,7 @@ public static class SeedData
         {
             var auctionItems = seedData
                 .Select(a => new AuctionItem(
-                    a.Category, a.Decade, a.Description, a.PurchasePrice, a.StartPrice, a.CreatedBy))
+                    a.Title, a.Category, a.Decade, a.Description, a.PurchasePrice, a.StartPrice, a.CreatedBy))
                 .ToList();
             
             context.AuctionsItems.AddRange(auctionItems);

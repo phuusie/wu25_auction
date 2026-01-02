@@ -1,0 +1,105 @@
+﻿@page "{id}"
+@model AuctionsDetailsModel
+
+@{
+    ViewData["Title"] = Model.Item.Title;
+}
+
+@{
+    var imageUrl = string.IsNullOrWhiteSpace(Model.Item.ImageUrl)
+        ? Url.Content("~/images/placeholder-auction.jpg")
+        : Model.Item.ImageUrl;
+}
+
+<div class="detail-layout">
+    <div class="detail-image">
+        <img src="@imageUrl" alt="@Model.Item.Id" />
+    </div>
+
+    <div class="detail-content">
+        <h1 class="detail-title">@Model.Item.Title</h1>
+        <h3 class="detail-meta">@Model.Item.Id</h3>
+
+        <div class="detail-meta">
+            <span>@Model.Item.Category</span>
+            <span>@Model.Item.Decade</span>
+        </div>
+
+        <p class="detail-description">
+            @Model.Item.Description
+        </p>
+
+        <div class="detail-price">
+            @if (Model.Item.IsSold)
+            {
+                <span class="price-sold">@Model.Item.FinalPrice kr</span>
+            }
+            else
+            {
+                <span class="price">@Model.Item.StartPrice.ToString("N2") kr</span>
+            }
+        </div>
+        <div class="detail-timer">
+            @if (Model.Item.IsSold)
+            {
+                <span class="detail-ended">
+                    Auktionen avslutades
+                    @Model.Item.EndsAt.ToString("yyyy-MM-dd HH:mm")
+                </span>
+            }
+            else
+            {
+                <span class="detail-ends">
+                    Auktionen slutar
+                    @Model.Item.EndsAt.ToString("yyyy-MM-dd HH:mm")
+                </span>
+
+                <span id="countdown"
+                      class="detail-countdown"
+                      data-endtime="@Model.Item.EndsAt.ToString("O")">
+                </span>
+            }
+        </div>
+        <a asp-page="Index" class="auth-link">
+            ← Tillbaka till auktioner
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+(function () {
+    const el = document.getElementById("countdown");
+    if (!el) return;
+
+    const endTime = new Date(el.dataset.endtime).getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        let diff = endTime - now;
+
+        if (diff <= 0) {
+            el.textContent = "Auktionen är avslutad";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff %= (1000 * 60 * 60 * 24);
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        diff %= (1000 * 60 * 60);
+
+        const minutes = Math.floor(diff / (1000 * 60));
+        diff %= (1000 * 60);
+
+        const seconds = Math.floor(diff / 1000);
+
+        el.textContent =
+            `${days}d ${hours}h ${minutes}m ${seconds}s kvar`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+})();
+</script>
+}

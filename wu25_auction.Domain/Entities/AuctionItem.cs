@@ -7,6 +7,7 @@ namespace wu25_auction.Domain.Entities;
 
 public class AuctionItem : Entity<string>
 {
+    public string Title { get; private set; }
     public string Category { get; private set; }
     public int Decade { get; private set; }
     public string Description { get; private set; }
@@ -19,12 +20,15 @@ public class AuctionItem : Entity<string>
     public string CreatedBy { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
+    public DateTime? EndsAt { get; private set; }
+    
+    public string? ImageUrl { get; private set; }
 
     private AuctionItem() { }
 
     public AuctionItem(
-        string category, int decade, string description, decimal purchasePrice, decimal startPrice,
-        string createdBy)
+        string title, string category, int decade, string description,
+        decimal purchasePrice, decimal startPrice, string createdBy)
     {
         if (string.IsNullOrWhiteSpace(category))
             throw new ArgumentException("Kategori måste anges.");
@@ -42,6 +46,7 @@ public class AuctionItem : Entity<string>
             throw new ArgumentException("Ogiltigt årtione.");
 
         Id = GenerateId();
+        Title = title;
         Category = category;
         Decade = decade;
         Description = description;
@@ -49,6 +54,7 @@ public class AuctionItem : Entity<string>
         StartPrice = startPrice;
         CreatedBy = createdBy;
         CreatedAt = DateTime.UtcNow;
+        EndsAt = CreatedAt.AddDays(7);
         Status = SalesItemStatus.InStock;
     }
 

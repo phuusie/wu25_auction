@@ -32,6 +32,9 @@ public static class AuctionEndpointExtensions
     {
         var item = await auctionItemService.GetByIdAsync(id);
         
+        if (item == null)
+            return Results.NotFound();
+        
         return Results.Ok(item);
     }
     
