@@ -22,8 +22,7 @@
             @if (User.IsInRole("Admin"))
             {
                 <a class="account-subnav-link"
-                   asp-controller="Admin"
-                   asp-action="Users">
+                   asp-page="/Admin/Index">
                     Användare
                 </a>
             }

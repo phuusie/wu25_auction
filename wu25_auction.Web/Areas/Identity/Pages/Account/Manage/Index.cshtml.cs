@@ -112,56 +112,46 @@ namespace wu25_auction.Web.Areas.Identity.Pages.Account.Manage
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
-            {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
 
             if (!ModelState.IsValid)
             {
-                await LoadAsync(user);
+                await LoadAsync(user); 
                 return Page();
-            }
-
+            } 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+
             if (Input.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Unexpected error when trying to set phone number."; 
                     return RedirectToPage();
                 }
-            }
-
-            user.Update(
-                Input.FirstName,
-                Input.LastName,
-                CreateAddress(Input)
-            );
-
-            await _userManager.UpdateAsync(user);
-            await _signInManager.RefreshSignInAsync(user);
-
-            StatusMessage = "Your profile has been updated";
+            } 
+            
+            user.Update( 
+                Input.FirstName, Input.LastName, CreateAddress(Input)); 
+            
+            await _userManager.UpdateAsync(user); 
+            await _signInManager.RefreshSignInAsync(user); 
+            StatusMessage = "Your profile has been updated"; 
             return RedirectToPage();
         }
-        
-        private static Address? CreateAddress(InputModel input)
-        {
-            if (string.IsNullOrWhiteSpace(input.Street) &&
-                string.IsNullOrWhiteSpace(input.City) &&
-                string.IsNullOrWhiteSpace(input.PostalCode) &&
-                string.IsNullOrWhiteSpace(input.Country))
-            {
-                return null;
-            }
 
-            return new Address(
-                input.Street!.Trim(),
-                input.City!.Trim(),
-                input.PostalCode!.Trim(),
-                input.Country!.Trim()
-            );
+        private static Address? CreateAddress(
+            InputModel input)
+        {
+            if (string.IsNullOrWhiteSpace(input.Street)
+                && string.IsNullOrWhiteSpace(input.City)
+                && string.IsNullOrWhiteSpace(input.PostalCode)
+                && string.IsNullOrWhiteSpace(input.Country))
+                return null;
+            
+            return new Address( 
+                input.Street!.Trim(), input.City!.Trim(), input.PostalCode!.Trim(), input.Country!.Trim() );
         }
 
     }

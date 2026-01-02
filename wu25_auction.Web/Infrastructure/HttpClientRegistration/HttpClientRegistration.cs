@@ -4,8 +4,8 @@ namespace wu25_auction.Web.Infrastructure.HttpClientRegistration;
 
 public static class HttpClientRegistration
 {
-    public static IServiceCollection AddHttpClientRegistration(
-        this IServiceCollection services, IConfiguration configuration)
+    public static void AddHttpClientRegistration(
+        this IServiceCollection services)
     {
         var baseUrl = new Uri("http://localhost:5067");
 
@@ -13,7 +13,5 @@ public static class HttpClientRegistration
         {
             client.BaseAddress = baseUrl;
         });
-        
-        return services;
     }
 }

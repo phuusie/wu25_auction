@@ -7,7 +7,7 @@ namespace wu25_auction.Api.EndpointExtensions;
 
 public static class AuctionEndpointExtensions
 {
-    public static IEndpointRouteBuilder MapAuctionEndpoint(
+    public static void MapAuctionEndpoint(
         this IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("api/auctions");
@@ -16,8 +16,6 @@ public static class AuctionEndpointExtensions
         group.MapGet("/{id}", GetByIdAsync);
         group.MapPost("/", AddAsync);
         group.MapPut("{id}/sold", MarkAsSold);
-        
-        return app;
     }
 
     private static async Task<IResult> GetAllAsync(

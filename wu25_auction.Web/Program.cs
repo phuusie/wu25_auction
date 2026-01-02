@@ -19,11 +19,11 @@ builder.Services
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages();
-builder.Services.AddHttpClientRegistration(builder.Configuration);
+builder.Services.AddHttpClientRegistration();
 
 builder.Services.AddRazorPages();
 
-builder.Services.AddHttpClientRegistration(builder.Configuration);
+builder.Services.AddHttpClientRegistration();
 
 var app = builder.Build();
 
@@ -51,6 +51,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
