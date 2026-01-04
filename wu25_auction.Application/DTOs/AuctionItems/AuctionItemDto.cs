@@ -15,9 +15,10 @@ public class AuctionItemDto
     public decimal? FinalPrice { get; init; }
 
     public SalesItemStatus Status { get; init; }
+    
+    public string CreatedBy { get; init; } = "";
 
     public string? ImageUrl { get; init; }
-
     public DateTime CreatedAt { get; init; }
     public DateTime EndsAt { get; init; }
 }

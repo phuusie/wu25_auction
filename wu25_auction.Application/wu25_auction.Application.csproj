@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\wu25_auction.DataAccess\wu25_auction.DataAccess.csproj" />
+      <ProjectReference Include="..\wu25_auction.Web\wu25_auction.Web.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,1 +1,57 @@
 ﻿@page
+@model InventoryModel
+
+<div class="account-layout">
+    <div class="account-header">
+        <h1 class="account-title">Mina objekt</h1>
+        <p class="account-subtitle">Objekt du har skapat</p>
+    </div>
+
+    @if (!Model.Items.Any())
+    {
+        <p class="muted">Du har inte skapat några objekt ännu.</p>
+    }
+    else
+    {
+        <div class="inventory-list">
+            <div class="inventory-header">
+                <span>Titel</span>
+                <span>Skapad</span>
+                <span>Avslutas</span>
+                <span>Pris</span>
+                <span>Bud</span>
+                <span>Status</span>
+            </div>
+
+            @foreach (var item in Model.Items)
+            {
+                <a asp-page="/Auction/Details"
+                   asp-route-id="@item.Id"
+                   class="product-link">
+                    <div class="inventory-row">
+                        <div class="inventory-title">
+                            @item.Title
+                            <div class="inventory-id">@item.Id</div>
+                        </div>
+
+                        <div class="inventory-date">
+                            @item.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                        </div>
+                        <div class="inventory-date">
+                            @item.EndsAt.ToString("yyyy-MM-dd HH:mm")
+                        </div>
+                        <div class="inventory-price">
+                            @item.StartPrice.ToString("N2") kr
+                        </div>
+                        <div class="inventory-price">
+                            n/a
+                        </div>
+                        <div class="inventory-status @(item.IsSold ? "sold" : "active")">
+                            @(item.IsSold ? "Såld" : "Aktiv")
+                        </div>
+                    </div> 
+                </a>
+            }
+        </div>
+    }
+</div>

@@ -7,7 +7,8 @@ public class AuctionItemViewModel
     public string Category { get; init; } = default!;
     public int Decade { get; init; }
     public string Description { get; init; } = default!;
-
+    
+    public decimal PurchasePrice { get; init; }
     public decimal StartPrice { get; init; }
     public decimal? FinalPrice { get; init; }
     

@@ -6,5 +6,6 @@ public interface IAuctionItemHttpClientService
 {
     Task<IEnumerable<AuctionItemViewModel>> GetAllAsync();
     Task<AuctionItemViewModel?> GetByIdAsync(string id);
-    Task CreateAsync(AuctionItemViewModel vm);
+    Task<IEnumerable<AuctionItemViewModel>> GetAllByUserIdAsync(string userId);
+    Task CreateAsync(AuctionItemViewModel vm, string userId);
 }

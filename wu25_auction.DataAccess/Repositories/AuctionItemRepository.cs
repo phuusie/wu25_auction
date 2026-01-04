@@ -16,6 +16,13 @@ public class AuctionItemRepository(AuctionDbContext context) : IAuctionItemRepos
         return await context.AuctionsItems.ToListAsync();
     }
 
+    public async Task<IEnumerable<AuctionItem>> GetAllByUserIdAsync(string userId)
+    {
+        return await context.AuctionsItems
+            .Where(u => u.CreatedBy == userId)
+            .ToListAsync();
+    }
+
     public async Task<AuctionItem?> GetByIdAsync(string id)
     {
         return await context.AuctionsItems

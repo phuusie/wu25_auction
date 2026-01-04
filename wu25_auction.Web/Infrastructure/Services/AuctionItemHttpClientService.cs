@@ -18,8 +18,16 @@ public class AuctionItemHttpClientService(HttpClient httpClient) : IAuctionItemH
         return item;
     }
 
-    public async Task CreateAsync(AuctionItemViewModel vm)
+    public async Task<IEnumerable<AuctionItemViewModel>> GetAllByUserIdAsync(string userId)
     {
-        await httpClient.PostAsJsonAsync("api/auctions", vm);
+        var items = await httpClient.GetFromJsonAsync<IEnumerable<AuctionItemViewModel>>($"api/auctions?userId={userId}");
+        return items ?? [];
+    }
+
+
+    public async Task CreateAsync(AuctionItemViewModel vm, string userId)
+    {
+        
+        await httpClient.PostAsJsonAsync($"api/auctions?user={userId}", vm);
     }
 }

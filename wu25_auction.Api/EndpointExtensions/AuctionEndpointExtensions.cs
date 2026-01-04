@@ -14,6 +14,7 @@ public static class AuctionEndpointExtensions
 
         group.MapGet("/", GetAllAsync);
         group.MapGet("/{id}", GetByIdAsync);
+        group.MapGet("/inventory/{userId}", GetAllByUserIdAsync);
         group.MapPost("/", AddAsync);
         group.MapPut("{id}/sold", MarkAsSold);
     }
@@ -35,16 +36,20 @@ public static class AuctionEndpointExtensions
         
         return Results.Ok(item);
     }
+
+    private static async Task<IResult> GetAllByUserIdAsync(
+        [FromServices] IAuctionItemService auctionItemService, string userId)
+    {
+        var items = await auctionItemService.GetAllByUserIdAsync(userId);
+        return Results.Ok(items);
+    }
     
     private static async Task<IResult> AddAsync(
-        AuctionItemDto dto, ClaimsPrincipal user, [FromServices] IAuctionItemService auctionItemService)
+        [FromBody] AuctionItemDto dto, [FromQuery] string user, [FromServices] IAuctionItemService auctionItemService)
     {
-        // var userId = user.Identity!.Name!;
-        var tempId = "anonymous-user";
-        var id = await auctionItemService.CreateAsync(dto, tempId);
+        var id = await auctionItemService.CreateAsync(dto, user);
         
-        return Results.Created(
-            $"/auctions/{id}", null);
+        return Results.Ok(id);
     }
 
     private static async Task<IResult> MarkAsSold(

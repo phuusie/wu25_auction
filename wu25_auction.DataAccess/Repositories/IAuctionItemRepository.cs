@@ -6,6 +6,7 @@ public interface IAuctionItemRepository
 {
     Task AddAsync(AuctionItem item);
     Task<IEnumerable<AuctionItem>> GetAllAsync();
+    Task<IEnumerable<AuctionItem>> GetAllByUserIdAsync(string userId);
     Task<AuctionItem?> GetByIdAsync(string id);
     Task SaveChangesAsync();
 }

@@ -26,6 +26,11 @@ public class AuctionItemService(IAuctionItemRepository itemRepository) : IAuctio
         return await itemRepository.GetByIdAsync(id);
     }
 
+    public Task<IEnumerable<AuctionItem>> GetAllByUserIdAsync(string userId)
+    {
+        return itemRepository.GetAllByUserIdAsync(userId);
+    }
+
     public async Task MarkAsSoldAsync(string id, decimal price, bool isManager)
     {
         if (!isManager)

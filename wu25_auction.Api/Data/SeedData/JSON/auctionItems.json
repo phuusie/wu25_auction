@@ -15,7 +15,7 @@
     "description": "Vintage klocka från 60-talet",
     "purchasePrice": 1000,
     "startPrice": 1500,
-    "createdBy": "seed-user"
+    "createdBy": "test-user"
   },
   {
     "title": "Gaming laptop 2010-tal",
@@ -24,7 +24,7 @@
     "description": "Gaming laptop i gott skick",
     "purchasePrice": 5000,
     "startPrice": 6500,
-    "createdBy": "seed-user"
+    "createdBy": "test-user"
   },
   {
     "title": "Elgitarr Fender Stratocaster",
