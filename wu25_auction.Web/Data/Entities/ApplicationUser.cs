@@ -8,8 +8,6 @@ public class ApplicationUser : IdentityUser
     public string? FirstName { get; private set; }
     public string? LastName { get; private set; }
     public Address? Address { get; private set; }
-
-    protected ApplicationUser() { }
     
     public static ApplicationUser Create(
         string email,

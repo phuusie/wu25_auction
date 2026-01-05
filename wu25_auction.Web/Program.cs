@@ -4,6 +4,7 @@ using wu25_auction.Web.Data;
 using wu25_auction.Web.Data.Entities;
 using wu25_auction.Web.Data.SeedData;
 using wu25_auction.Web.Infrastructure.HttpClientRegistration;
+using wu25_auction.Web.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ builder.Services
     })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClientRegistration();

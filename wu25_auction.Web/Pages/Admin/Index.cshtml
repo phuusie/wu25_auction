@@ -1,3 +1,71 @@
 ﻿@page
+@model AdminModel
 
+@{
+    ViewData["Title"] = "Användare";
+}
+<div class="account-layout">
+    <div class="account-header">
+        <h1 class="account-title">Användare</h1>
+        <p class="account-subtitle">Användar information</p>
+    </div>
 
+    <table class="users-table">
+        <thead>
+        <tr>
+            <th>Användarnamn</th>
+            <th>Namn</th>
+            <th>Adress</th>
+            <th>Kontakt</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr class="user-row"
+                data-user-id="@user.Id"
+                data-bs-toggle="modal"
+                data-bs-target="#userModal">
+            
+                <td class="user-email">
+                    <span class="muted">@user.Id</span><br/>
+                    @user.Email
+                </td>
+                <td>
+                    @user.FirstName @user.LastName
+                </td>
+                <td class="user-address">
+                    @user.Street<br/>
+                    @user.PostalCode @user.City
+                    @user.Country
+                </td>
+                <td>
+                    @user.PhoneNumber<br/>
+                    <span class="muted">@user.Email</span>
+                </td>
+                <td class="user-roles" data-user-roles="@user.Id">
+                    @foreach (var role in user.Roles)
+                    {
+                        <span class="role-badge role-@role.ToLower()">
+                            @role
+                        </span>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    <div class="modal fade" id="userModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content user-modal">
+                <div class="modal-body" id="userModalContent">
+                    <div class="text-center">
+                        <span class="muted">Laddar användare...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

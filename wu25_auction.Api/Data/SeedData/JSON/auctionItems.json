@@ -51,7 +51,7 @@
     "description": "Art déco bordslampa i mässing",
     "purchasePrice": 2500,
     "startPrice": 4200,
-    "createdBy": "seed-user"
+    "createdBy": "test-user"
   },
   {
     "title": "Teakbyrå dansk design",
@@ -60,7 +60,7 @@
     "description": "Teakbyrå i dansk design",
     "purchasePrice": 4500,
     "startPrice": 6800,
-    "createdBy": "seed-user"
+    "createdBy": "test-user"
   },
   {
     "title": "Militärt fickur WW2",
@@ -69,114 +69,6 @@
     "description": "Militärt fickur från andra världskriget",
     "purchasePrice": 3200,
     "startPrice": 5200,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Bärbar CD-spelare 90-tal",
-    "category": "Elektronik",
-    "decade": 1990,
-    "description": "Bärbar CD-spelare i fungerande skick",
-    "purchasePrice": 800,
-    "startPrice": 1400,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Emaljerad kaffepanna",
-    "category": "Hushåll",
-    "decade": 1970,
-    "description": "Emaljerad kaffepanna",
-    "purchasePrice": 400,
-    "startPrice": 900,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Handmålad porslinsvas",
-    "category": "Dekoration",
-    "decade": 1920,
-    "description": "Handmålad porslinsvas",
-    "purchasePrice": 1800,
-    "startPrice": 3000,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Analog synthesizer 80-tal",
-    "category": "Musik",
-    "decade": 1980,
-    "description": "Analog synthesizer i mycket gott skick",
-    "purchasePrice": 14000,
-    "startPrice": 19000,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Vintage cykel 60-tal",
-    "category": "Transport",
-    "decade": 1960,
-    "description": "Cykel med stålram och originaldetaljer",
-    "purchasePrice": 2200,
-    "startPrice": 3600,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Antik väggklocka med pendel",
-    "category": "Samlarobjekt",
-    "decade": 1910,
-    "description": "Antik väggklocka med pendel",
-    "purchasePrice": 5000,
-    "startPrice": 8200,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Juldekorationer i glas",
-    "category": "Högtid",
-    "decade": 1950,
-    "description": "Juldekorationer i glas, komplett set",
-    "purchasePrice": 1100,
-    "startPrice": 2100,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Läderfåtölj 70-tal",
-    "category": "Möbler",
-    "decade": 1970,
-    "description": "Läderfåtölj i tidstypisk design",
-    "purchasePrice": 6000,
-    "startPrice": 9000,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "MP3-spelare första generationen",
-    "category": "Elektronik",
-    "decade": 2000,
-    "description": "Första generationens MP3-spelare",
-    "purchasePrice": 1200,
-    "startPrice": 2400,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Oljetavla landskapsmotiv",
-    "category": "Dekoration",
-    "decade": 1940,
-    "description": "Oljetavla med landskapsmotiv",
-    "purchasePrice": 2800,
-    "startPrice": 4600,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Plåtleksak 30-tal",
-    "category": "Samlarobjekt",
-    "decade": 1930,
-    "description": "Plåtleksak i mycket gott skick",
-    "purchasePrice": 3500,
-    "startPrice": 6200,
-    "createdBy": "seed-user"
-  },
-  {
-    "title": "Retro kaffemaskin 90-tal",
-    "category": "Hushåll",
-    "decade": 1990,
-    "description": "Kaffemaskin i retrodesign",
-    "purchasePrice": 900,
-    "startPrice": 1600,
     "createdBy": "seed-user"
   }
 ]
