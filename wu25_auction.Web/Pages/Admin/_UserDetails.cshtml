@@ -1,0 +1,199 @@
+﻿@using wu25_auction.Web.Models
+@model UserViewModel
+@{
+    Layout = null;
+}
+
+<div class="user-card">
+    <button type="button"
+            class="user-close"
+            data-bs-dismiss="modal"
+            aria-label="Stäng">
+        ×
+    </button>
+    <div class="user-layout">
+        <div class="user-main">
+
+            <div class="user-header">
+                <h2 class="user-name">
+                    @Model.FirstName @Model.LastName
+                </h2>
+
+                <button type="button"
+                        class="user-edit-link edit-toggle"
+                        id="edit-button">
+                    Redigera
+                </button>
+            </div>
+            <div class="view-mode">
+
+                <p class="muted user-email">ID: @Model.Id</p>
+                <p class="user-email">Email: @Model.Email</p>
+
+                <div class="user-section">
+                    <h3>Kontakt</h3>
+                    <p>@Model.PhoneNumber</p>
+                </div>
+
+                <div class="user-section">
+                    <h3>Adress</h3>
+                    <p>
+                        @Model.Street<br />
+                        @Model.PostalCode @Model.City<br />
+                        @Model.Country
+                    </p>
+                </div>
+
+                <div class="user-section">
+                    <h3>Roller</h3>
+
+                    <form id="roleForm">
+                        <input type="hidden" name="userId" value="@Model.Id" />
+
+                        @foreach (var role in Model.AllRoles)
+                        {
+                            <label class="role-checkbox">
+                                <input type="checkbox"
+                                       name="SelectedRoles"
+                                       value="@role"
+                                       class="role-checkbox-input"
+                                       @(Model.Roles.Contains(role) ? "checked" : "") />
+                                <span class="role-checkbox-text">@role</span>
+                            </label>
+                        }
+                    </form>
+                </div>
+
+                <div class="user-section">
+                    <div class="user-actions">
+                        <button type="button"
+                                class="auth-button"
+                                id="open-message">
+                            Meddelande
+                        </button>
+
+                        <form method="post"
+                              asp-action="SendPasswordReset"
+                              asp-controller="Admin">
+                            <input type="hidden" name="userId" value="@Model.Id" />
+                            <button type="submit" class="auth-button">
+                                Lösenordåterställning
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <form id="editUserForm"
+                  class="edit-mode profile-form"
+                  asp-action="UpdateUser"
+                  asp-controller="Admin"
+                  method="post"
+                  style="display:none">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" name="Id" value="@Model.Id" />
+
+                <div class="profile-grid">
+                    <input
+                        class="auth-input"
+                        name="FirstName"
+                        value="@Model.FirstName"
+                        placeholder="Förnamn"/>
+                    <input
+                        class="auth-input"
+                        name="LastName"
+                        value="@Model.LastName"
+                        placeholder="Efternamn"/>
+                    <input
+                        class="auth-input"
+                        name="Email"
+                        value="@Model.Email"
+                        placeholder="Email"/>
+
+                    <input
+                        class="auth-input full"
+                        name="Street"
+                        value="@Model.Street"
+                        placeholder="Gatuadress"/>
+                    <input
+                        class="auth-input"
+                        name="PostalCode"
+                        value="@Model.PostalCode"
+                        placeholder="Postkod"/>
+                    <input
+                        class="auth-input"
+                        name="City"
+                        value="@Model.City"
+                        placeholder="Stad"/>
+                    <input
+                        class="auth-input full"
+                        name="Country"
+                        value="@Model.Country"
+                        placeholder="Land"/>
+                    <input
+                        class="auth-input full"
+                        name="PhoneNumber"
+                        value="@Model.PhoneNumber"
+                        placeholder="Telefonnummer"/>
+                </div>
+
+                <div class="edit-actions user-actions">
+                    <button
+                        type="submit"
+                        class="auth-button confirm">Spara</button>
+                    <button
+                        type="button"
+                        class="auth-button cancel-edit">Avbryt</button>
+                    <button type="button"
+                            class="auth-button danger"
+                            data-user-id="@Model.Id"
+                            id="delete-user">
+                        Ta bort användare
+                    </button>
+                </div>
+            </form>
+            <div class="message-mode" style="display:none">
+                <form method="post"
+                      asp-action="SendMessage"
+                      asp-controller="Admin">
+
+                    <input 
+                        type="hidden" 
+                        name="userId"
+                        value="@Model.Id" />
+                    <h2 class="user-email">Till: @Model.Email</h2>
+
+                    <div class="profile-grid">
+                        <input 
+                            class="auth-input full" 
+                            name="subject" 
+                            placeholder="Ämne" />
+                        <textarea class="auth-input full"
+                                  name="body"
+                                  placeholder="Meddelande"
+                                  rows="5"></textarea>
+                    </div>
+
+                    <div class="user-actions">
+                        <button 
+                            type="submit" 
+                            class="auth-button confirm">Skicka</button>
+                        <button 
+                            type="button" 
+                            class="auth-button cancel-message">Avbryt</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="user-side">
+            <div class="user-portrait">
+                <img src="@(string.IsNullOrWhiteSpace(Model.ImageUrl)
+                    ? Url.Content("~/images/user-placeholder.jpg")
+                    : Model.ImageUrl)"
+                     alt="Profilbild" />
+            </div>
+        </div>
+    </div>
+</div>

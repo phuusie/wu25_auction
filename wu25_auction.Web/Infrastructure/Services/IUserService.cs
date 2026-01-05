@@ -6,4 +6,5 @@ namespace wu25_auction.Web.Infrastructure.Services;
 public interface IUserService
 {
     Task<IEnumerable<UserViewModel>> GetAllAsync();
+    Task <UserViewModel> GetByIdAsync(string id);
 }

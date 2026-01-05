@@ -15,6 +15,12 @@ public class AdminModel(IUserService userService)
         Users = await userService.GetAllAsync();
         return Page();
     }
+
+    public async Task<IActionResult> OnGetUserDetailsAsync(string id)
+    {
+        var user = await userService.GetByIdAsync(id);
+        return Partial("_UserDetails", user);
+    }
 }
 
 

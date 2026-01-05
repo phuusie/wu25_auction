@@ -2,9 +2,15 @@
 @model InventoryModel
 
 <div class="account-layout">
-    <div class="account-header">
-        <h1 class="account-title">Mina objekt</h1>
-        <p class="account-subtitle">Objekt du har skapat</p>
+    <div class="account-header account-header-actions">
+        <div class="account-header">
+            <h1 class="account-title">Mina objekt</h1>
+            <p class="account-subtitle">Objekt du har skapat</p>
+        </div>
+        
+        <a asp-page="/Auctions/Create" class="create-button">
+            + Auktionera objekt
+        </a>
     </div>
 
     @if (!Model.Items.Any())
@@ -25,7 +31,7 @@
 
             @foreach (var item in Model.Items)
             {
-                <a asp-page="/Auction/Details"
+                <a asp-page="/Auctions/Details"
                    asp-route-id="@item.Id"
                    class="product-link">
                     <div class="inventory-row">

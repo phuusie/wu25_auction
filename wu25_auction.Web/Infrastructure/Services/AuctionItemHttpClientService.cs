@@ -7,20 +7,23 @@ public class AuctionItemHttpClientService(HttpClient httpClient) : IAuctionItemH
     
     public async Task<IEnumerable<AuctionItemViewModel>> GetAllAsync()
     {
-        var items = await httpClient.GetFromJsonAsync<IEnumerable<AuctionItemViewModel>>("api/auctions");
+        var items = await httpClient
+            .GetFromJsonAsync<IEnumerable<AuctionItemViewModel>>("api/auctions");
         return items ?? [];
     }
 
     public async Task<AuctionItemViewModel?> GetByIdAsync(string id)
     {
-        var item = await httpClient.GetFromJsonAsync<AuctionItemViewModel>($"api/auctions/{id}");
+        var item = await httpClient
+            .GetFromJsonAsync<AuctionItemViewModel>($"api/auctions/{id}");
         
         return item;
     }
 
     public async Task<IEnumerable<AuctionItemViewModel>> GetAllByUserIdAsync(string userId)
     {
-        var items = await httpClient.GetFromJsonAsync<IEnumerable<AuctionItemViewModel>>($"api/auctions?userId={userId}");
+        var items = await httpClient
+            .GetFromJsonAsync<IEnumerable<AuctionItemViewModel>>($"api/auctions/inventory/{userId}");
         return items ?? [];
     }
 
@@ -28,6 +31,7 @@ public class AuctionItemHttpClientService(HttpClient httpClient) : IAuctionItemH
     public async Task CreateAsync(AuctionItemViewModel vm, string userId)
     {
         
-        await httpClient.PostAsJsonAsync($"api/auctions?user={userId}", vm);
+        await httpClient
+            .PostAsJsonAsync($"api/auctions?user={userId}", vm);
     }
 }

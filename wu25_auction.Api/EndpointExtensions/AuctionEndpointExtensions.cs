@@ -51,7 +51,7 @@ public static class AuctionEndpointExtensions
         
         return Results.Ok(id);
     }
-
+    
     private static async Task<IResult> MarkAsSold(
         string id, decimal finalPrice, ClaimsPrincipal user, [FromServices] IAuctionItemService auctionItemService)
     {

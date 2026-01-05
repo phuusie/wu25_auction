@@ -29,7 +29,7 @@ public class ApplicationUser : IdentityUser
     }
 
     public void Update(
-        string? firstName, string lastName, Address? address)
+        string? firstName, string? lastName, Address? address)
     {
         FirstName = firstName;
         LastName = lastName;
